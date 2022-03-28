@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './components/Home';
 import Add from './components/Add'
 import Dashboard from './components/Dashboard';
-
+import Edit from './components/Edit';
 
 
 function App() {
@@ -15,6 +15,8 @@ function App() {
           <Route index element={<Home />} />
           <Route path="dashboard" element={<Dashboard/>}/>
           <Route path="add" element={<Add />} />
+          <Route path="edit" element={<Edit />} />
+
           
 
           <Route

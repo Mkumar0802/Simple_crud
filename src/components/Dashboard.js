@@ -6,6 +6,7 @@ import axios from 'axios';
 
 
 
+
 function Dashboard(props) {
     const [dashboardList, setDashboardList] = useState([]);
     console.log(dashboardList);
@@ -25,17 +26,27 @@ function Dashboard(props) {
         getData();
     }, []);
 
-    function deleteUser(id) {
-        fetch(`http://localhost:8080/employee/deleteemployee/${id}`, {
-            method: 'DELETE'
-        }).then((result) => {
-            result.json().then((resp) => {
-                console.warn(resp)
-            })
+    // function deleteUser(id) {
+    //     fetch(`http://localhost:8080/employee/deleteemployee/${id}`, {
+    //         method: 'DELETE'
+    //     }).then((result) => {
+    //         result.json().then((resp) => {
+    //             console.warn(resp)
+    //         })
 
-        })
+    //     })
+    // }
+
+	const setData = (_id, name, age,country,email,mobile) => {
+        localStorage.setItem('id', _id)
+        localStorage.setItem('name', name)
+        localStorage.setItem('age', age)
+        localStorage.setItem('country',country)
+        localStorage.setItem('email',email)
+        localStorage.setItem('mobile', mobile)
+
+
     }
-
 
 
 
@@ -81,9 +92,37 @@ function Dashboard(props) {
 
                                     </tr>
                                 </thead>
+
+                                <tbody> 
+                                {dashboardList.map((menu) => {
+                                    return (
+                                        <tr className="border-b odd:bg-white even:bg-gray-50  ">
+                                            <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap  " >{menu._id}</td>
+                                            <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap ">{menu.name}</td>
+                                            <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap ">{menu.age}</td>
+                                            <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap">{menu.country}</td>
+                                            <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap ">{menu.email}</td>
+                                            <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap ">{menu.mobile}</td>
+                                            <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap ">
+                                                <div className="flex justify-center   gap-3 "><Link to="/edit">
+                                                    <button   onClick={() => setData(menu.id, menu.name, menu.age,menu.country,menu.email,menu.mobile)} className="text-white bg-slate-700 hover:bg-slate-800 focus:ring-4 focus:ring-slate-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mb-2" >
+                                                        Edit
+                                                    </button></Link>
+
+
+                                                    <button className="text-white bg-slate-700 hover:bg-slate-800 focus:ring-4 focus:ring-slate-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mb-2" >
+                                                        Delete
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    )
+                                    })}
+                                </tbody>
+
                             </table>
                         </div>
-                        {dashboardList.map((menu) => (<MenuCard id={menu.id} name={menu.name} age={menu.age} country={menu.country} email={menu.email} mobile={menu.mobile} />))}
+
                     </div>
                 </div>
             </div>
@@ -92,56 +131,10 @@ function Dashboard(props) {
     )
 }
 
-function MenuCard({ id, name, age, country, email, mobile }) {
-    return (
-        <div class="flex flex-col  p-5">
-            <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
-                <div class="inline-block py-2 min-w-full sm:px-6 lg:px-8">
-                    <div class="overflow-hidden shadow-md sm:rounded-lg">
-                        <table class="min-w-full">
-
-
-                            <tbody>
-
-                                <tr className="border-b odd:bg-white even:bg-gray-50  ">
-                                    <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap  " >{id}</td>
-                                    <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap ">{name}</td>
-                                    <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap ">{age}</td>
-                                    <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap">{country}</td>
-                                    <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap ">{email}</td>
-                                    <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap ">{mobile}</td>
-                                    <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap ">
-                                        <div className="flex justify-center   gap-3 ">
-                                            <button className="text-white bg-slate-700 hover:bg-slate-800 focus:ring-4 focus:ring-slate-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mb-2" >
-                                                Edit
-                                            </button>
-
-
-                                            <button className="text-white bg-slate-700 hover:bg-slate-800 focus:ring-4 focus:ring-slate-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mb-2" >
-                                                Delete
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-
-                            </tbody>
-
-
-                        </table>
 
 
 
-                    </div>
-                </div>
-            </div>
-        </div>
 
-
-    )
-
-
-
-}
 
 
 

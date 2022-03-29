@@ -1,7 +1,7 @@
 import { Link, Outlet } from "react-router-dom";
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-// import Swal from 'sweetalert2';
+import Swal from 'sweetalert2';
 
 
 
@@ -14,7 +14,7 @@ function Dashboard(props) {
     const getData = async () => {
         try {
             let { data: response } = await axios.get(
-                `http://localhost:8080/employee/getemployee`
+                `https://6242b6dfb6734894c154f2f6.mockapi.io/a1/employee`
             );
             setDashboardList(response);
         } catch (err) {
@@ -26,19 +26,32 @@ function Dashboard(props) {
         getData();
     }, []);
 
-    // function deleteUser(id) {
-    //     fetch(`http://localhost:8080/employee/deleteemployee/${id}`, {
-    //         method: 'DELETE'
-    //     }).then((result) => {
-    //         result.json().then((resp) => {
-    //             console.warn(resp)
-    //         })
+    const onDelete = (id) => {
+        axios.delete(`https://6242b6dfb6734894c154f2f6.mockapi.io/a1/employee/${id}`)
+        Swal.fire({
+            icon: 'warning',
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'No, cancel!',
+          })
+        .then(() => {
+             Swal.fire({
+          icon: 'success',
+          title: 'Deleted!',
+          text: `data has been deleted.`,
+          showConfirmButton: false,
+          timer: 1500,
+        });
 
-    //     })
-    // }
+            getData();
+        })
+    }
 
-	const setData = (_id, name, age,country,email,mobile) => {
-        localStorage.setItem('id', _id)
+
+	const setData = (id, name, age,country,email,mobile) => {
+        localStorage.setItem('id', id)
         localStorage.setItem('name', name)
         localStorage.setItem('age', age)
         localStorage.setItem('country',country)
@@ -97,7 +110,7 @@ function Dashboard(props) {
                                 {dashboardList.map((menu) => {
                                     return (
                                         <tr className="border-b odd:bg-white even:bg-gray-50  ">
-                                            <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap  " >{menu._id}</td>
+                                            <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap  " >{menu.id}</td>
                                             <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap ">{menu.name}</td>
                                             <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap ">{menu.age}</td>
                                             <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap">{menu.country}</td>
@@ -105,12 +118,12 @@ function Dashboard(props) {
                                             <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap ">{menu.mobile}</td>
                                             <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap ">
                                                 <div className="flex justify-center   gap-3 "><Link to="/edit">
-                                                    <button   onClick={() => setData(menu.id, menu.name, menu.age,menu.country,menu.email,menu.mobile)} className="text-white bg-slate-700 hover:bg-slate-800 focus:ring-4 focus:ring-slate-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mb-2" >
+                                                    <button   onClick={() => setData(menu._id, menu.name, menu.age,menu.country,menu.email,menu.mobile)} className="text-white bg-slate-700 hover:bg-slate-800 focus:ring-4 focus:ring-slate-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mb-2" >
                                                         Edit
                                                     </button></Link>
 
 
-                                                    <button className="text-white bg-slate-700 hover:bg-slate-800 focus:ring-4 focus:ring-slate-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mb-2" >
+                                                    <button onClick={() => onDelete(menu.id)}   className="text-white bg-slate-700 hover:bg-slate-800 focus:ring-4 focus:ring-slate-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mb-2" >
                                                         Delete
                                                     </button>
                                                 </div>

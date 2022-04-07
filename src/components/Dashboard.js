@@ -87,7 +87,7 @@ function Dashboard(props) {
                                             Name
                                         </th>
                                         <th scope="col" class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase ">
-                                            Age
+                                        Employee Id
                                         </th>
                                         <th scope="col" class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase ">
                                             Country
@@ -118,7 +118,7 @@ function Dashboard(props) {
                                             <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap ">{menu.mobile}</td>
                                             <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap ">
                                                 <div className="flex justify-center   gap-3 "><Link to="/edit">
-                                                    <button   onClick={() => setData(menu._id, menu.name, menu.age,menu.country,menu.email,menu.mobile)} className="text-white bg-slate-700 hover:bg-slate-800 focus:ring-4 focus:ring-slate-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mb-2" >
+                                                    <button   onClick={() => setData(menu.id, menu.name, menu.age,menu.country,menu.email,menu.mobile)} className="text-white bg-slate-700 hover:bg-slate-800 focus:ring-4 focus:ring-slate-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mb-2" >
                                                         Edit
                                                     </button></Link>
 

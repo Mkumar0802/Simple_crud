@@ -2,10 +2,10 @@ import axios from "axios";
 import React from "react";
 import { Link, Outlet } from "react-router-dom";
 import { useState } from "react";
-// import Swal from 'sweetalert2';
+import Swal from 'sweetalert2';
 
 export function Add() {
-	
+	 
 	
 	const [name, setName] = useState('');
 	const [age, setAge] = useState('');
@@ -14,12 +14,21 @@ export function Add() {
 	const [email,setEmail] = useState('');
 	const sendDataToAPI = () => {
 	  axios.post(`https://6242b6dfb6734894c154f2f6.mockapi.io/a1/employee`, {
+	
 		name,
 		age,
 		country,
 		email,
 		mobile
 	  }).then(() => {
+		Swal.fire({
+			icon: 'success',
+			title: 'Added!',
+			text: `data has been Addedd.`,
+			showConfirmButton: false,
+			timer: 1500
+			
+		});
 		
 	  })
 	}
@@ -30,12 +39,13 @@ export function Add() {
 
 			<h2 className=" text-xl   md:text-2xl font-bold  "><Link to="/dashboard">Dashboard</Link></h2>
 			<form>
+			
 				<div class="mb-6">
 					<label for="Name" class="block mb-2 text-sm font-medium  ">Name</label>
 					<input type="text" id="name" onChange={(e) => setName(e.target.value)}  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " />
 				</div>
 				<div class="mb-6">
-					<label for="age" class="block mb-2 text-sm font-medium  ">Your age</label>
+					<label for="age" class="block mb-2 text-sm font-medium  ">Employee Id</label>
 					<input type="number" id="age" onChange={(e) => setAge(e.target.value)}  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " />
 				</div>
 				<div class="mb-6">
@@ -53,9 +63,9 @@ export function Add() {
 					<input type="number" id="mobile" onChange={(e) => setMobile(e.target.value)}  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " />
 				</div>
 
-				<button type="submit" onClick={sendDataToAPI } class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"><Link to="/dashboard">Submit</Link></button>
+				<button type="submit" onClick={sendDataToAPI } class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"><Link to="/dashboard">Submit</Link> 	<Outlet /></button>
 			</form>
-			<Outlet />
+		
 		</div>
 
 	)

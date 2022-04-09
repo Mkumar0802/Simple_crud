@@ -14,7 +14,7 @@ function Dashboard(props) {
     const getData = async () => {
         try {
             let { data: response } = await axios.get(
-                `https://6242b6dfb6734894c154f2f6.mockapi.io/a1/employee`
+                `http://localhost:8080/employee/getemployee/`
             );
             setDashboardList(response);
         } catch (err) {
@@ -26,8 +26,8 @@ function Dashboard(props) {
         getData();
     }, []);
 
-    const onDelete = (id) => {
-        axios.delete(`https://6242b6dfb6734894c154f2f6.mockapi.io/a1/employee/${id}`)
+    const onDelete = (_id) => {
+        axios.delete(`http://localhost:8080/employee/deleteemployee/${_id}`)
         Swal.fire({
             icon: 'warning',
             title: 'Are you sure?',
@@ -35,27 +35,27 @@ function Dashboard(props) {
             showCancelButton: true,
             confirmButtonText: 'Yes, delete it!',
             cancelButtonText: 'No, cancel!',
-          })
-        .then(() => {
-             Swal.fire({
-          icon: 'success',
-          title: 'Deleted!',
-          text: `data has been deleted.`,
-          showConfirmButton: false,
-          timer: 1500,
-        });
-
-            getData();
         })
+            .then(() => {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Deleted!',
+                    text: `data has been deleted.`,
+                    showConfirmButton: false,
+                    timer: 1500,
+                });
+
+                getData();
+            })
     }
 
 
-	const setData = (id, name, age,country,email,mobile) => {
-        localStorage.setItem('id', id)
+    const setData = (_id, name, age, country, email, mobile) => {
+        localStorage.setItem('id', _id)
         localStorage.setItem('name', name)
         localStorage.setItem('age', age)
-        localStorage.setItem('country',country)
-        localStorage.setItem('email',email)
+        localStorage.setItem('country', country)
+        localStorage.setItem('email', email)
         localStorage.setItem('mobile', mobile)
 
 
@@ -67,11 +67,15 @@ function Dashboard(props) {
     return (
         <>
             <div class="bg-slate-500">
-                <div className="flex  p-6 space-x-12">
-                    <h2 className="  text-xl   md:text-2xl font-bold text-white  ">Dashboard</h2>
-                    <button className=" text-xl   md:text-2xl font-bold text-white "><Link to="/add">Add</Link><Outlet /></button>
-                </div>
+                <div className="flex  p-8 space-x-12 justify-center">
+                    <h2 className="  text-xl   md:text-2xl font-bold text-white  ">Employee Dashboard</h2>
 
+                </div>
+                <div className="flex justify-center  ">
+                    <button className=" text-white bg-slate-700 hover:bg-slate-800 focus:ring-4 focus:ring-slate-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mb-2 "><Link to="/add"><svg xmlns="http://www.w3.org/2000/svg" class=" flex h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M8 9a3 3 0 100-6 3 3 0 000 6zM8 11a6 6 0 016 6H2a6 6 0 016-6zM16 7a1 1 0 10-2 0v1h-1a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V7z" />
+                    </svg>Add</Link> </button>
+                </div>
             </div>
             <div class="flex flex-col  p-5">
                 <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -87,7 +91,7 @@ function Dashboard(props) {
                                             Name
                                         </th>
                                         <th scope="col" class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase ">
-                                        Employee Id
+                                            Employee Id
                                         </th>
                                         <th scope="col" class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase ">
                                             Country
@@ -106,30 +110,34 @@ function Dashboard(props) {
                                     </tr>
                                 </thead>
 
-                                <tbody> 
-                                {dashboardList.map((menu) => {
-                                    return (
-                                        <tr className="border-b odd:bg-white even:bg-gray-50  ">
-                                            <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap  " >{menu.id}</td>
-                                            <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap ">{menu.name}</td>
-                                            <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap ">{menu.age}</td>
-                                            <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap">{menu.country}</td>
-                                            <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap ">{menu.email}</td>
-                                            <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap ">{menu.mobile}</td>
-                                            <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap ">
-                                                <div className="flex justify-center   gap-3 "><Link to="/edit">
-                                                    <button   onClick={() => setData(menu.id, menu.name, menu.age,menu.country,menu.email,menu.mobile)} className="text-white bg-slate-700 hover:bg-slate-800 focus:ring-4 focus:ring-slate-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mb-2" >
-                                                        Edit
-                                                    </button></Link>
+                                <tbody>
+                                    {dashboardList.map((menu) => {
+                                        return (
+                                            <tr className="border-b odd:bg-white even:bg-gray-50  ">
+                                                <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap  " >{menu._id}</td>
+                                                <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap ">{menu.name}</td>
+                                                <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap ">{menu.age}</td>
+                                                <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap">{menu.country}</td>
+                                                <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap ">{menu.email}</td>
+                                                <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap ">{menu.mobile}</td>
+                                                <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap ">
+                                                    <div className="flex justify-center   gap-3   "><Link to="/edit">
+                                                        <button onClick={() => setData(menu._id, menu.name, menu.age, menu.country, menu.email, menu.mobile)} className="flex text-white bg-slate-700 hover:bg-slate-800 focus:ring-4 focus:ring-slate-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mb-2" >
+                                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                                <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                                            </svg>  Edit
+                                                        </button></Link>
 
 
-                                                    <button onClick={() => onDelete(menu.id)}   className="text-white bg-slate-700 hover:bg-slate-800 focus:ring-4 focus:ring-slate-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mb-2" >
-                                                        Delete
-                                                    </button>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    )
+                                                        <button onClick={() => onDelete(menu._id)} className=" flex text-white bg-slate-700 hover:bg-slate-800 focus:ring-4 focus:ring-slate-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mb-2" >
+                                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                                <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                                            </svg>   Delete
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        )
                                     })}
                                 </tbody>
 
@@ -139,7 +147,7 @@ function Dashboard(props) {
                     </div>
                 </div>
             </div>
-
+            <Outlet/>
         </>
     )
 }

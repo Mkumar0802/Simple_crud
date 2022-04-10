@@ -58,7 +58,7 @@ export function Edit() {
 	function updateUser() {
 		let item = { name, mobile, email, age, country }
 		console.warn("item", item)
-		fetch(`http://localhost:8080/employee/updateemployee/${_id}`, {
+		fetch(`https://employee-crudapi.herokuapp.com/employee/updateemployee/${_id}`, {
 			method: 'PATCH',
 			headers: {
 				'Accept': 'application/json',

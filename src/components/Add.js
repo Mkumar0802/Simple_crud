@@ -13,7 +13,7 @@ export function Add() {
 	const [mobile, setMobile] = useState('');
 	const [email, setEmail] = useState('');
 	const sendDataToAPI = () => {
-		axios.post(`http://localhost:8080/employee/saveemployee`, {
+		axios.post(`https://employee-crudapi.herokuapp.com/employee/saveemployee`, {
 
 			name,
 			age,

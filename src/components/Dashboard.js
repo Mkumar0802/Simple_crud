@@ -14,7 +14,7 @@ function Dashboard(props) {
     const getData = async () => {
         try {
             let { data: response } = await axios.get(
-                `http://localhost:8080/employee/getemployee/`
+                `https://employee-crudapi.herokuapp.com/employee/getemployee/`
             );
             setDashboardList(response);
         } catch (err) {
@@ -27,7 +27,7 @@ function Dashboard(props) {
     }, []);
 
     const onDelete = (_id) => {
-        axios.delete(`http://localhost:8080/employee/deleteemployee/${_id}`)
+        axios.delete(`https://employee-crudapi.herokuapp.com/employee/deleteemployee/${_id}`)
         Swal.fire({
             icon: 'warning',
             title: 'Are you sure?',

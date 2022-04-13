@@ -13,6 +13,16 @@ export function Add() {
 	const [mobile, setMobile] = useState('');
 	const [email, setEmail] = useState('');
 	const sendDataToAPI = () => {
+
+		if (!name || !age || !country || !mobile || !email) {
+			return Swal.fire({
+				icon: 'error',
+				title: 'Error!',
+				text: 'All fields are required.',
+				showConfirmButton: true
+			});
+		}
+
 		axios.post(`https://employee-crudapi.herokuapp.com/employee/saveemployee`, {
 
 			name,
@@ -37,9 +47,8 @@ export function Add() {
 	return (
 
 		<>
-			<div className=" bg-slate-200   ">
-
-				<div className="flex bg-slate-500  w-screen p-6 text-white ">
+			<div className=" bg-slate-400   ">
+				<div className="flex bg-slate-600  w-auto  text-white p-6 ">
 
 
 					<button className="text-xl   md:text-4xl font-bold    whitespace-nowrap"><Link to="/dashboard"><ion-icon name="arrow-back-circle-outline"></ion-icon></Link> </button>

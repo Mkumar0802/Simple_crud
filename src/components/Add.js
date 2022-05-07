@@ -1,12 +1,13 @@
 import axios from "axios";
 import React from "react";
-import { Link, Outlet } from "react-router-dom";
+import { Link,useNavigate} from "react-router-dom";
 import { useState } from "react";
 import Swal from 'sweetalert2';
 
+
 export function Add() {
 
-
+	let navigate = useNavigate();
 	const [name, setName] = useState('');
 	const [age, setAge] = useState('');
 	const [country, setCountry] = useState('');
@@ -30,17 +31,24 @@ export function Add() {
 			country,
 			email,
 			mobile
-		}).then(() => {
+			
+		} ).then(() => {
 			Swal.fire({
 				icon: 'success',
 				title: 'Added!',
 				text: `data has been Addedd.`,
 				showConfirmButton: false,
 				timer: 1500
-
+				
+				
 			});
-
-		})
+			
+			
+		}
+		
+		)
+		navigate('/dashboard');
+		
 	}
 
 
@@ -86,12 +94,12 @@ export function Add() {
 					</div>
 					<div class="ml-40">
 						<button type="submit" onClick={sendDataToAPI}
-							class="text-white bg-slate-700 hover:bg-slate-800 focus:ring-4 focus:ring-slate-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mb-2" ><Link to="/dashboard">Submit</Link> 	</button>
+							class="text-white bg-slate-700 hover:bg-slate-800 focus:ring-4 focus:ring-slate-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mb-2" >Submit	</button>
 					</div>
 				</form>
 
 			</div>
-			<Outlet />
+			
 		</>
 	)
 

@@ -1,11 +1,12 @@
 
 import React from "react";
 import { useEffect, useState } from 'react';
-import { Link, Outlet, } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 
 import Swal from 'sweetalert2';
 
 export function Edit() {
+	const navigate = useNavigate();
 	const [users, setUser] = useState([]);
 	const [name, setName] = useState('');
 	const [age, setAge] = useState('');
@@ -90,6 +91,7 @@ export function Edit() {
 
 		});
 
+		navigate('/dashboard');
 	}
 
 
@@ -137,11 +139,11 @@ export function Edit() {
 					</div>
 					<div class="ml-40">
 						<button type="submit" onClick={updateUser}
-							class="text-white bg-slate-700 hover:bg-slate-800 focus:ring-4 focus:ring-slate-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mb-2" ><Link to="/dashboard">Submit</Link><Outlet/> 	</button>
+							class="text-white bg-slate-700 hover:bg-slate-800 focus:ring-4 focus:ring-slate-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mb-2" >Submit 	</button>
 					</div>
 				</form>
 			</div>
-<Outlet/>
+
 		</>
 	)
 

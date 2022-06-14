@@ -1,9 +1,15 @@
 import React from 'react';
+
+
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { loadProgressBar } from 'axios-progress-bar'
 import Home from './components/Home';
 import Add from './components/Add'
 import Dashboard from './components/Dashboard';
 import Edit from './components/Edit';
+
+
+loadProgressBar()
 
 
 function App() {

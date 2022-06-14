@@ -1,12 +1,11 @@
 import axios from "axios";
 import React from "react";
-import { Link,useNavigate} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import Swal from 'sweetalert2';
+import { URL } from "../Helper/Url";
 
-
-export function Add() {
-
+function Add() {
 	let navigate = useNavigate();
 	const [name, setName] = useState('');
 	const [age, setAge] = useState('');
@@ -24,7 +23,7 @@ export function Add() {
 			});
 		}
 
-		axios.post(`https://employee-crudapi.herokuapp.com/employee/saveemployee`, {
+		axios.post(URL, {
 
 			name,
 			age,
@@ -36,7 +35,7 @@ export function Add() {
 			Swal.fire({
 				icon: 'success',
 				title: 'Added!',
-				text: `data has been Addedd.`,
+				text: `${name}  data has been Addedd.`,
 				showConfirmButton: false,
 				timer: 1500
 				
@@ -99,7 +98,7 @@ export function Add() {
 				</form>
 
 			</div>
-			
+
 		</>
 	)
 

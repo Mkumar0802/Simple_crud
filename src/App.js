@@ -7,7 +7,7 @@ import Home from './components/Home';
 import Add from './components/Add'
 import Dashboard from './components/Dashboard';
 import Edit from './components/Edit';
-
+import Single from './components/Single'
 
 loadProgressBar()
 
@@ -22,7 +22,7 @@ function App() {
           <Route path="dashboard" element={<Dashboard/>}/>
           <Route path="add" element={<Add />} />
           <Route path="edit" element={<Edit />} />
-
+          <Route path="/id/:id" element={<Single />} />
           
 
           <Route

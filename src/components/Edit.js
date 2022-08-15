@@ -37,7 +37,7 @@ const schema = yup
       .string()
       .matches(/^[0-9]+$/, "Must be only digits")
       .min(5, "Must be exactly 5 digits")
-      .max(5, "Must be exactly 5 digits"),
+      .max(10, "Must be exactly 5 digits"),
   })
   .required();
 
